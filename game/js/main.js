@@ -7,8 +7,10 @@ let qPart2;
 let qPart3;
 let questionArray;
 let solution;
-let toBeAnswered;
+let tryCount = 0;
+let coinCount = 0;
 $(function() {
+    drawGrid();
     let nextCounter = 0;
     $("#weiter").click(function() {
          switch (nextCounter){
@@ -22,15 +24,9 @@ $(function() {
          nextCounter++;
     });
     $("button.chest").click(function (){
+        $(this).hide();
         location.href="#chest";
-        generateQuestion();
         chestReset();
-        $(".timer").html("<div class=\"timer\" style=\"--duration: 30\">\n" +
-            "            <div></div>\n" +
-            "        </div>");
-        setTimeout(function () {
-            console.log("time is up");
-        }, 30000);
     })
     $(".arrows.up button").click(function(){
         let position = $(this).attr("class");
@@ -56,7 +52,14 @@ $(function() {
         console.log(getAnswer());
     });
     $("#ok").click(function (){
-        checkAnswer();
+        console.log(checkAnswer());
+        $(this).prop('disabled', true);
+        if(checkAnswer()){
+            $(".timer").hide(0);
+            generateLoot()
+        }else{
+            tryCount++;
+        }
     });
 });
 
@@ -82,7 +85,9 @@ function generateGrid(){
     }
 }
 function drawGrid(){
-
+    for (let i = 0; i < 10; i++){
+        $("#grid").append("<button class=\"chest\">CHEST</button>")
+    }
 }
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -105,13 +110,39 @@ function generateQuestion(){
 
 function checkAnswer(){
     if(getAnswer() === solution){
-        $("#alert").text("richtig");
+        return true;
     }else{
-        $("#alert").text("falsch");
+        return false;
     }
 }
 
+function generateLoot(){
+    switch (tryCount){
+        case 0: coinCount +=3; break;
+        case 1: coinCount +=2; break;
+        case 2: coinCount +=1; break;
+        default: $("#alert").text("leider ist das Schloss kaputt gegangen, der Inhalt ist wohl verloren gegangen");
+                 break;
+    }
+    $(".coins").text(coinCount + " Münzen");
+}
+
 function chestReset(){
+    console.log(tryCount);
+    $("#ok").prop('disabled', false);
     $(".inputDigits span").text("0");
     $("#alert").text("");
+    generateQuestion();
+    $(".timerBox").html("<div class=\"timer\" style=\"--duration: 30\">\n" +
+        "            <div></div>\n" +
+        "        </div>").show();
+    setTimeout(function () {
+        if(!checkAnswer()){
+            tryCount++;
+            chestReset();
+        }
+    }, 30000);
+    if (tryCount > 3){
+        $("#alert").text("leider ist das Schloss kaputt gegangen, der Inhalt ist wohl verloren gegangen");
+    }
 }
