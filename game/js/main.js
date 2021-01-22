@@ -21,6 +21,11 @@ $(function() {
          }
          nextCounter++;
     });
+    $("button.chest").click(function (){
+        location.href="#chest";
+        generateQuestion();
+        chestReset();
+    })
     $(".arrows.up button").click(function(){
         let position = $(this).attr("class");
         let newIndex;
@@ -44,9 +49,8 @@ $(function() {
         $("span." + position).text(digits[newIndex]);
         console.log(getAnswer());
     });
-    $("#ok").click(function () {
-        console.log("working");
-        generateQuestion();
+    $("#ok").click(function (){
+        checkAnswer();
     });
 });
 
@@ -91,6 +95,17 @@ function generateQuestion(){
     let q2 = (solution === qPart2) ? "....." : qPart2;
     let q3 = (solution === qPart3) ? "....." : qPart3;
     $("#question").text((q1 + " + " + q2 + " = " + q3));
+}
 
+function checkAnswer(){
+    if(getAnswer() === solution){
+        $("#alert").text("richtig");
+    }else{
+        $("#alert").text("falsch");
+    }
+}
 
+function chestReset(){
+    $(".inputDigits span").text("0");
+    $("#alert").text("");
 }

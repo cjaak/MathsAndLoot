@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1486cfac-4564-4f1f-a2e9-f51eef95adb4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/game/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/game/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/game/js/main.js" afterDir="false" />
     </list>
