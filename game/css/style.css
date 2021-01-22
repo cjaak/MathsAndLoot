@@ -60,10 +60,22 @@ body {
     border: 3px solid black;
     margin-top: 500px;
 }
-
-
+/*https://css-tricks.com/timer-bars-in-css-with-custom-properties/*/
+.timer div {
+    height: 5px;
+    background: linear-gradient(to bottom, red, #900);
+    animation: roundtime calc(var(--duration) * 1s) linear forwards;
+    transform-origin: left center;
+}
 
 button {
     width: 100px;
     height: 30px;
+}
+
+@keyframes roundtime {
+    to {
+        /* More performant than animating `width` */
+        transform: scaleX(0);
+    }
 }

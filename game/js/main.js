@@ -25,6 +25,12 @@ $(function() {
         location.href="#chest";
         generateQuestion();
         chestReset();
+        $(".timer").html("<div class=\"timer\" style=\"--duration: 30\">\n" +
+            "            <div></div>\n" +
+            "        </div>");
+        setTimeout(function () {
+            console.log("time is up");
+        }, 30000);
     })
     $(".arrows.up button").click(function(){
         let position = $(this).attr("class");
