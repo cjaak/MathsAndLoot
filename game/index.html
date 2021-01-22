@@ -8,26 +8,66 @@
     <script src="js/main.js"></script>
 </head>
 <body>
-<div class="felder" id="eins">
-    <form>
-        <h1>Seite 1</h1>
-        <input type="text" id="name">
-        <button type="submit">weiter</button>
-    </form>
+
+<div class="box" id="menu">
+    <ul>
+        <li><a href="#tutorial">Start</a></li>
+        <li><a href="#chest">Chest</a></li>
+    </ul>
 </div>
 
-<div class="felder" id="zwei">
+<div class="box" id="tutorial">
     <div>
-        <h1>Seite 2</h1>
-        <h1><a href="#drei">zu Ende gespielt!</a></h1>
+        <h1>Tutorial</h1>
+        <div id="tutorialText">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti eos expedita non similique? Deserunt enim esse et, exercitationem in ipsa magni molestiae nemo perspiciatis provident quo repellat totam vero voluptate?</p>
+         <button id="weiter">weiter</button>
+        </div>
     </div>
 </div>
 
-<div class="felder" id="drei">
+<div class="box" id="field">
     <div>
         <h1>Seite 3</h1>
         <h1>GEWONNEN</h1>
         <p id="zurueck">zurück</p>
+    </div>
+</div>
+
+<div class="box" id="gameOver">
+    <div>
+        <h1>Seite 2</h1>
+        <h1><a href="#menu">zu Ende gespielt!</a></h1>
+    </div>
+</div>
+
+<div class="box" id="won">
+    <div>
+        <h1>Seite 2</h1>
+        <h1><a href="#menu">zu Ende gespielt!</a></h1>
+    </div>
+</div>
+
+
+<div class="box" id="chest">
+    <div>
+        <div class="lock">
+            <div class="arrows">
+                <button>&#9650;</button>
+                <button>&#9650;</button>
+                <button>&#9650;</button>
+            </div>
+            <div class="inputDigits">
+                <span id="digit100">0</span>
+                <span id="digit10">0</span>
+                <span id="digit1">0</span>
+            </div>
+            <div class="arrows">
+                <button>&#9660;</button>
+                <button>&#9660;</button>
+                <button>&#9660;</button>
+            </div>
+        </div>
     </div>
 </div>
 
