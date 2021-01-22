@@ -68,6 +68,19 @@ body {
     transform-origin: left center;
 }
 
+.myTimer{
+    text-align: center;
+}
+
+.lock button, .lock span{
+    width: 50px;
+}
+
+.lock span{
+    display: inline-block;
+    text-align: center;
+}
+
 button {
     width: 100px;
     height: 30px;

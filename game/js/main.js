@@ -9,6 +9,10 @@ let questionArray;
 let solution;
 let tryCount = 0;
 let coinCount = 0;
+let myTimeout;
+let myTimer;
+let time = 30;
+let x = 1;
 $(function() {
     drawGrid();
     let nextCounter = 0;
@@ -23,9 +27,19 @@ $(function() {
          }
          nextCounter++;
     });
+    $("button.exit").click(function(){
+        location.href="#exit";
+    })
+    $("button#cancel").click(function(){
+        location.href="#field";
+    })
+    $("button#exitGame").click(function(){
+        location.href="#menu";
+    })
     $("button.chest").click(function (){
         $(this).hide();
         location.href="#chest";
+        tryCount = 0;
         chestReset();
     })
     $(".arrows.up button").click(function(){
@@ -49,13 +63,13 @@ $(function() {
             newIndex = findIndexInDigits(currentDigit) - 1;
         }
         $("span." + position).text(digits[newIndex]);
-        console.log(getAnswer());
     });
     $("#ok").click(function (){
-        console.log(checkAnswer());
         $(this).prop('disabled', true);
         if(checkAnswer()){
             $(".timer").hide(0);
+            clearTimeout(myTimeout);
+            clearInterval(myTimer);
             generateLoot()
         }else{
             tryCount++;
@@ -128,21 +142,35 @@ function generateLoot(){
 }
 
 function chestReset(){
-    console.log(tryCount);
     $("#ok").prop('disabled', false);
     $(".inputDigits span").text("0");
     $("#alert").text("");
     generateQuestion();
+    $(".myTimer").text(time);
+    let seconds = time-1;
+    myTimer = setInterval(function (){
+        $(".myTimer").text(seconds--);
+    }, 1000);
+    myTimeout = setTimeout(function () {
+        clearInterval(myTimer);
+        $(".myTimer").text(0);
+        if(!checkAnswer() && tryCount < 2){
+            tryCount++;
+            $("#ok").prop('disabled', true);
+            setTimeout(function (){
+                chestReset();
+            }, 3000);
+        }
+    }, time*1000);
     $(".timerBox").html("<div class=\"timer\" style=\"--duration: 30\">\n" +
         "            <div></div>\n" +
         "        </div>").show();
-    setTimeout(function () {
-        if(!checkAnswer()){
-            tryCount++;
-            chestReset();
-        }
-    }, 30000);
-    if (tryCount > 3){
+    if (tryCount >= 3){
+        clearInterval(myTimer);
+        clearTimeout(myTimeout);
+        $(".timer").hide()
         $("#alert").text("leider ist das Schloss kaputt gegangen, der Inhalt ist wohl verloren gegangen");
+
     }
+
 }

@@ -29,6 +29,7 @@
 
 <div class="box" id="field">
     <div>
+        <button class="exit">EXIT</button>
         <div id="grid"></div>
         <div class="coins"></div>
     </div>
@@ -51,6 +52,7 @@
 
 <div class="box" id="chest">
     <div>
+        <div class="myTimer"></div>
         <div class="timerBox">
             <div class="timer" style="--duration: 30">
                         <div></div>
@@ -76,11 +78,19 @@
                 <button class="second">&#9660;</button>
                 <button class="third">&#9660;</button>
             </div>
-            <button type="submit" id="ok">OK</button>
-                <span id="alert"></span>
-            <div class="coins">Münzen</div>
-            <a href="#field">Field</a>
         </div>
+        <button type="submit" id="ok">OK</button>
+        <span id="alert"></span>
+        <div class="coins">Münzen</div>
+        <a href="#field">Field</a>
+    </div>
+</div>
+
+<div class="box" id="exit">
+    <div>
+        Du hast <span class="coins"></span> Münzen gesammelt. Bist du fertig?
+        <button id="cancel">Nein</button>
+        <button id="exitGame">Spiel beenden</button>
     </div>
 </div>
 
