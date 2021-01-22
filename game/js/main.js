@@ -2,6 +2,12 @@ let gridRowCount = 10;
 let gridColumnCount = 10;
 let myGrid = [];
 let digits = [0,1,2,3,4,5,6,7,8,9];
+let qPart1;
+let qPart2;
+let qPart3;
+let questionArray;
+let solution;
+let toBeAnswered;
 $(function() {
     let nextCounter = 0;
     $("#weiter").click(function() {
@@ -38,6 +44,10 @@ $(function() {
         $("span." + position).text(digits[newIndex]);
         console.log(getAnswer());
     });
+    $("#ok").click(function () {
+        console.log("working");
+        generateQuestion();
+    });
 });
 
 function findIndexInDigits(num){
@@ -62,5 +72,25 @@ function generateGrid(){
     }
 }
 function drawGrid(){
+
+}
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function generateQuestion(){
+    do{
+        qPart1 = getRndInteger(1,100);
+        qPart2 = getRndInteger(1,100);
+        qPart3 = qPart1 + qPart2;
+    }while(qPart3 > 100)
+    questionArray = [qPart1, qPart2, qPart3];
+    solution = questionArray[getRndInteger(0,2)];
+    console.log(questionArray);
+    let q1 = (solution === qPart1) ? "....." : qPart1;
+    let q2 = (solution === qPart2) ? "....." : qPart2;
+    let q3 = (solution === qPart3) ? "....." : qPart3;
+    $("#question").text((q1 + " + " + q2 + " = " + q3));
+
 
 }

@@ -38,6 +38,7 @@ body {
 #menu ul{
     list-style: none;
     display: flex;
+    flex-flow: column;
 }
 
 #menu ul li a{
