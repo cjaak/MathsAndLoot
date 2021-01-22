@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+:root{
+    --darkcolor: #1F2A3D;
+    --contrast: #C94255;
+    --lightcolor: #E7EEE2;
+    --accentlight: #8494A8;
+    --accentdark: #758696;
+}
+
 html {
     font-size: 22px;
 }
@@ -14,15 +22,7 @@ body {
     height: 100vh;
 }
 
-h1 {
-    margin: 40px 0;
-}
-
-a {
-    color: black;
-}
-
-.felder {
+.box {
     height: 100vh;
     width: 100vw;
     border: 3px solid black;
@@ -31,35 +31,38 @@ a {
     justify-content: center;
 }
 
-#eins {
-    background-color: deepskyblue;
+#menu{
+    background-color: var(--darkcolor);
 }
 
-#zwei {
-    background-color: springgreen;
+#menu ul{
+    list-style: none;
+    display: flex;
 }
 
-#drei {
-    background-color: darkturquoise;
+#menu ul li a{
+    display: block;
+    color: var(--lightcolor);
+    text-decoration: none;
 }
 
-input, button {
-    padding: 5px;
-    font-size: 1rem;
+#menu ul li a:hover{
+    color: var(--contrast);
 }
 
-input {
-    margin: 20px 20px 20px 0;
+#tutorial{
+    background-color: var(--lightcolor);
 }
+
+#tutorialText{
+    height: 300px;
+    border: 3px solid black;
+    margin-top: 500px;
+}
+
+
 
 button {
-    background-color: darkblue;
-    color: white;
-    border: none;
-}
-
-#zurueck {
-    text-align: center;
-    margin-top: 20px;
-    cursor: pointer;
+    width: 100px;
+    height: 30px;
 }
