@@ -15,7 +15,43 @@ $(function() {
          }
          nextCounter++;
     });
+    $(".arrows.up button").click(function(){
+        let position = $(this).attr("class");
+        let newIndex;
+        currentDigit = parseInt($("span." + position).text());
+        if(currentDigit === digits[digits.length -1]){
+            newIndex = 0;
+        }else {
+            newIndex = findIndexInDigits(currentDigit) + 1;
+        }
+        $("span." + position).text(digits[newIndex]);
+    });
+    $(".arrows.down button").click(function(){
+        let position = $(this).attr("class");
+        let newIndex;
+        currentDigit = parseInt($("span." + position).text());
+        if(currentDigit === digits[0]){
+            newIndex = digits.length -1;
+        }else {
+            newIndex = findIndexInDigits(currentDigit) - 1;
+        }
+        $("span." + position).text(digits[newIndex]);
+        console.log(getAnswer());
+    });
 });
+
+function findIndexInDigits(num){
+    for (let i=0; i<digits.length; i++){
+        if (digits[i] === num){
+            return i;
+        }
+    }
+    return -1;
+}
+
+function getAnswer(){
+    return $("#digit100").text() * 100 + $("#digit10").text() * 10 + $("#digit1").text() * 1;
+}
 
 function generateGrid(){
     for (let i=0; i < gridRowCount; i++ ){
