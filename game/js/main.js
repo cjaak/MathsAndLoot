@@ -46,7 +46,7 @@ $(function() {
     $(".arrows.up button").click(function(){
         let position = $(this).attr("class");
         let newIndex;
-        currentDigit = parseInt($("span." + position).text());
+        let currentDigit = parseInt($("span." + position).text());
         if(currentDigit === digits[digits.length -1]){
             newIndex = 0;
         }else {
@@ -67,13 +67,16 @@ $(function() {
     });
     $("#ok").click(function (){
         $(this).prop('disabled', true);
+        $(".timer").hide(0);
+        clearTimeout(myTimeout);
+        clearInterval(myTimer);
         if(checkAnswer()){
-            $(".timer").hide(0);
-            clearTimeout(myTimeout);
-            clearInterval(myTimer);
             generateLoot()
         }else{
             tryCount++;
+            chestReset();
+            console.log(tryCount);
+            setLife();
         }
     });
 });
@@ -138,22 +141,38 @@ function checkAnswer(){
 }
 
 function generateLoot(){
-    switch (tryCount){
-        case 0: coinCount +=3; break;
-        case 1: coinCount +=2; break;
-        case 2: coinCount +=1; break;
-        default: $("#alert").text("leider ist das Schloss kaputt gegangen, der Inhalt ist wohl verloren gegangen");
-                 break;
+    console.log("test");
+    $(".reward-card").slideDown(1500);
+    if (tryCount < 3) {
+        let coinsGained= 0;
+        $(".reward").css("background-image", "url(\"img/reward.png\")");
+        switch (tryCount){
+            case 0: coinsGained =3; break;
+            case 1: coinsGained +=2; break;
+            case 2: coinsGained +=1; break;
+        }
+        coinCount +=coinsGained;
+        $(".coins").text(coinCount);
+        $("#reward").text("Du erhältst " + coinsGained + " Münzen");
     }
-    $(".coins").text(coinCount + " Münzen");
+    else{
+        $(".reward").css("background-image", "url(\"img/truhe.png\")");
+        $("#reward").text("Diese Truhe bleibt wohl für immer verschlossen.");
+    }
 }
 
 function chestReset(){
+    $(".reward-card").hide(0);
+    setLife();
+    console.log($(".chestBackground").css('background-image'));
     $("#ok").prop('disabled', false);
     $(".inputDigits span").text("0");
     $("#alert").text("");
     generateQuestion();
     $(".myTimer").text(time);
+    $(".timerBox").html("<div class=\"timer\" style=\"--duration: 30\">\n" +
+        "            <div></div>\n" +
+        "        </div>").show();
     let seconds = time-1;
     myTimer = setInterval(function (){
         $(".myTimer").text(seconds--);
@@ -161,23 +180,31 @@ function chestReset(){
     myTimeout = setTimeout(function () {
         clearInterval(myTimer);
         $(".myTimer").text(0);
-        if(!checkAnswer() && tryCount < 2){
+        if(tryCount < 3){
             tryCount++;
+            setLife();
             $("#ok").prop('disabled', true);
             setTimeout(function (){
                 chestReset();
             }, 3000);
         }
     }, time*1000);
-    $(".timerBox").html("<div class=\"timer\" style=\"--duration: 30\">\n" +
-        "            <div></div>\n" +
-        "        </div>").show();
     if (tryCount >= 3){
         clearInterval(myTimer);
         clearTimeout(myTimeout);
         $(".timerBox").hide()
-        $("#alert").text("leider ist das Schloss kaputt gegangen, der Inhalt ist wohl verloren gegangen");
+        generateLoot();
 
     }
 
+}
+
+function setLife(){
+    switch (tryCount){
+        case 0: $('.lives span').show(); break;
+        case 1: $('.lives span#heart3').hide(); break;
+        case 2: $('.lives span#heart2').hide(); break;
+        case 3: $('.lives span#heart1').hide(); break;
+
+    }
 }
