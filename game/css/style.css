@@ -17,11 +17,14 @@ html {
 }
 
 body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Bitter', serif;
     line-height: 1.5rem;
     height: 100vh;
 }
-
+button {
+    width: 100px;
+    height: 30px;
+}
 .box {
     height: 100vh;
     width: 100vw;
@@ -29,6 +32,7 @@ body {
     padding: 50px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #menu{
@@ -45,10 +49,15 @@ body {
     display: block;
     color: var(--lightcolor);
     text-decoration: none;
+    background-color: #8494A8;
+    width: 300px;
+    border: 1px solid var(--lightcolor);
+    text-align: center;
 }
 
 #menu ul li a:hover{
     color: var(--contrast);
+    border: 1px solid var(--contrast);
 }
 
 #tutorial{
@@ -58,7 +67,74 @@ body {
 #tutorialText{
     height: 300px;
     border: 3px solid black;
-    margin-top: 500px;
+}
+
+.chest{
+    background-color: #990000;
+}
+.status{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    height: 150px;
+    background-color: #f6d190;
+    border-radius: 24px;
+    padding: 20px;
+    font-size: 30px;
+}
+
+.status img{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}
+
+.lives {
+    color: red;
+    font-size: 40px;
+    margin-top: 20px;
+}
+
+.lives span{
+    margin-right: 7px;
+}
+
+#chest{
+   background-color: antiquewhite;
+    position: relative;
+}
+
+
+.chestBackground{
+    background-image: url("../img/truhe.png");
+    background-repeat: no-repeat;
+    width: 512px;
+    height: 512px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-flow: column;
+    margin: auto;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.question{
+    background-color: rgba(150, 106, 91, 0.5);
+    width: 445px;
+    text-align: center;
+    height: 85px;
+    border: 5px solid #DAA520;
+    border-radius: 5px;
+    vertical-align: middle;
+    line-height: 85px;
+}
+
+.lock{
+    /*background-color: #966a5b; dunkles truhen braun*/
+    background-color: #ecbd83;
+    margin-top: 120px;
 }
 /*https://css-tricks.com/timer-bars-in-css-with-custom-properties/*/
 .timer div {
@@ -70,20 +146,136 @@ body {
 
 .myTimer{
     text-align: center;
+    position: absolute;
+    top: 120px;
+    font-size: 50px;
 }
 
 .lock button, .lock span{
     width: 50px;
 }
+.lock button{
+    background-color: #966a5b;
+    color: #DAA520;
+    border: 3px solid #DAA520;
+    border-radius: 12px;
+}
+
+.lock button:hover{
+    background-color: #DAA520;
+    color: #966a5b;
+    border: 3px solid #966a5b;
+}
+
+
 
 .lock span{
     display: inline-block;
     text-align: center;
 }
 
-button {
-    width: 100px;
-    height: 30px;
+
+
+/*#ok{
+    background-color: #fff5d7;
+    width: 50px;
+    border-radius: 50%;
+}*/
+/*https://codepen.io/rcherem/pen/Kxpgdr*/
+.golden-btn {
+    display: inline-block;
+    outline: none;
+    font-family: inherit;
+    font-size: 1em;
+    box-sizing: border-box;
+    border: none;
+    border-radius: .3em;
+    height: 2.75em;
+    line-height: 2.5em;
+    text-transform: uppercase;
+    padding: 0 1em;
+    box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+    inset 0 -2px 5px 1px rgba(139,66,8,1),
+    inset 0 -1px 1px 3px rgba(250,227,133,1);
+    background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07);
+    border: 1px solid #a55d07;
+    color: rgb(120,50,5);
+    text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    background-size: 100% 100%;
+    background-position:center;
+}
+.golden-btn:focus,
+.golden-btn:hover {
+    background-size: 150% 150%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23),
+    inset 0 -2px 5px 1px #b17d10,
+    inset 0 -1px 1px 3px rgba(250,227,133,1);
+    border: 1px solid rgba(165,93,7,.6);
+    color: rgba(120,50,5,.8);
+}
+.golden-btn:active {
+    box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+    inset 0 -2px 5px 1px #b17d10,
+    inset 0 -1px 1px 3px rgba(250,227,133,1);
+}
+
+.reward-card {
+    position: absolute;
+    top: 100px;
+    background-color: #f6d190;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 12px;
+    justify-content: center;
+    align-content: center;
+    display: none;
+}
+
+.reward {
+    height: 512px;
+    width: 512px;
+    background-image: url("../img/reward.png");
+    text-align: center;
+    padding: 30px;
+    font-size: 30px;
+}
+
+.return {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.return a{
+    display: block;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    text-decoration: none;
+    border: 3px solid #DAA520;
+    background-color: #fff5d7;
+    color: #DAA520;
+}
+
+.return a:hover{
+    border: 3px solid #fff5d7;
+    background-color: #DAA520;
+    color: #fff5d7;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+#grid button{
+    height: 70px;
+    width: 70px;
 }
 
 @keyframes roundtime {

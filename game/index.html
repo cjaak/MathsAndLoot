@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>MathAndLoot</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500&family=Indie+Flower&display=swap" rel="stylesheet">
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/main.js"></script>
 </head>
@@ -29,7 +33,10 @@
 
 <div class="box" id="field">
     <div>
-        <button class="exit">EXIT</button>
+        <div class="testing">
+            <button class="exit">EXIT</button>
+            <div class="testgrid"></div>
+        </div>
         <div id="grid"></div>
         <div class="coins"></div>
     </div>
@@ -51,13 +58,21 @@
 
 
 <div class="box" id="chest">
-    <div>
-        <div class="myTimer"></div>
-        <div class="timerBox">
-            <div class="timer" style="--duration: 30">
-                        <div></div>
-                    </div>
+    <div class="status">
+        <span class="coins">0</span><img src="img/coin.png" alt="coin" height="30px" width="30px">
+        <div class="lives">
+            <span id="heart1">&#x2764;</span>
+            <span id="heart2">&#x2764;</span>
+            <span id="heart3">&#x2764;</span>
         </div>
+    </div>
+    <div class="myTimer"></div>
+    <div class="timerBox">
+        <div class="timer" style="--duration: 30">
+            <div></div>
+        </div>
+    </div>
+    <div class="chestBackground">
         <div class="question">
             <span id="question"></span>
 
@@ -79,10 +94,16 @@
                 <button class="third">&#9660;</button>
             </div>
         </div>
-        <button type="submit" id="ok">OK</button>
+        <button type="submit" id="ok" class="golden-btn">OK</button>
         <span id="alert"></span>
-        <div class="coins">Münzen</div>
-        <a href="#field">Field</a>
+    </div>
+    <div class="reward-card">
+        <div class="reward">
+            <span id="reward">Du bekommst 3 Münzen.</span>
+        </div>
+    </div>
+    <div class="return">
+        <a href="#field">&#9754; zurück</a>
     </div>
 </div>
 

@@ -14,7 +14,8 @@ let myTimer;
 let time = 30;
 let x = 1;
 $(function() {
-    drawGrid();
+    generateGrid();
+   //drawGrid();
     let nextCounter = 0;
     $("#weiter").click(function() {
          switch (nextCounter){
@@ -37,7 +38,7 @@ $(function() {
         location.href="#menu";
     })
     $("button.chest").click(function (){
-        $(this).hide();
+        $(this).removeClass("chest");
         location.href="#chest";
         tryCount = 0;
         chestReset();
@@ -91,16 +92,22 @@ function getAnswer(){
 }
 
 function generateGrid(){
+    let counter = 0;
     for (let i=0; i < gridRowCount; i++ ){
         myGrid[i] = [];
         for (let j=0; j < gridColumnCount; j++){
-            myGrid[i][j] = {x: 0, y: 0, status: 1}
+            let index = getRndInteger(0,100);
+            if(index < 10){
+                myGrid[i][j] = $("#grid").append("<button class='chest'>&#f723;</button>")
+            }else{
+                myGrid[i][j] = $("#grid").append("<button>GRAS</button>")
+            }
         }
     }
 }
 function drawGrid(){
     for (let i = 0; i < 10; i++){
-        $("#grid").append("<button class=\"chest\">CHEST</button>")
+        $(".testgrid").append("<button class=\"chest\">CHEST</button>")
     }
 }
 function getRndInteger(min, max) {
@@ -168,7 +175,7 @@ function chestReset(){
     if (tryCount >= 3){
         clearInterval(myTimer);
         clearTimeout(myTimeout);
-        $(".timer").hide()
+        $(".timerBox").hide()
         $("#alert").text("leider ist das Schloss kaputt gegangen, der Inhalt ist wohl verloren gegangen");
 
     }
