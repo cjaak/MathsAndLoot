@@ -12,10 +12,11 @@ let coinCount = 0;
 let myTimeout;
 let myTimer;
 let time = 30;
-let x = 1;
+let gridIndex;
+let lastGridIndex;
 $(function() {
-    generateGrid();
-   //drawGrid();
+    //generateGrid();
+   drawGrid();
     let nextCounter = 0;
     $("#weiter").click(function() {
          switch (nextCounter){
@@ -37,7 +38,7 @@ $(function() {
     $("button#exitGame").click(function(){
         location.href="#menu";
     })
-    $("button.chest").click(function (){
+    $("div.chest").click(function (){
         $(this).removeClass("chest");
         location.href="#chest";
         tryCount = 0;
@@ -67,6 +68,7 @@ $(function() {
     });
     $("#ok").click(function (){
         $(this).prop('disabled', true);
+        $(".lock button").prop('disabled', true);
         $(".timer").hide(0);
         clearTimeout(myTimeout);
         clearInterval(myTimer);
@@ -109,9 +111,18 @@ function generateGrid(){
     }
 }
 function drawGrid(){
-    for (let i = 0; i < 10; i++){
-        $(".testgrid").append("<button class=\"chest\">CHEST</button>")
+    for (let i = 0; i < 100; i++){
+        $("#grid").append("<div></div>");
     }
+    for (let i = 0; i < 10; i++){
+        do{
+            gridIndex = getRndInteger(0,100);
+        }while(gridIndex === lastGridIndex);
+        lastGridIndex = gridIndex;
+        $("#grid div").eq(gridIndex).addClass("chest");
+        console.log($("#grid div").eq(gridIndex));
+    }
+
 }
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -166,6 +177,7 @@ function chestReset(){
     setLife();
     console.log($(".chestBackground").css('background-image'));
     $("#ok").prop('disabled', false);
+    $(".lock button").prop('disabled', false);
     $(".inputDigits span").text("0");
     $("#alert").text("");
     generateQuestion();
@@ -184,6 +196,7 @@ function chestReset(){
             tryCount++;
             setLife();
             $("#ok").prop('disabled', true);
+            $(".lock button").prop('disabled', true);
             setTimeout(function (){
                 chestReset();
             }, 3000);

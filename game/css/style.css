@@ -69,8 +69,21 @@ button {
     border: 3px solid black;
 }
 
-.chest{
-    background-color: #990000;
+#grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+#grid div{
+    height: 70px;
+    width: 70px;
+    background-color: green;
+    border: 1px solid black;
+}
+
+#grid .chest{
+    background-color: red;
 }
 .status{
     position: absolute;
@@ -289,16 +302,7 @@ button {
     color: #fff5d7;
 }
 
-#grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-}
 
-#grid button{
-    height: 70px;
-    width: 70px;
-}
 
 @keyframes roundtime {
     to {
