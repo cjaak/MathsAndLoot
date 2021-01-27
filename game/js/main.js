@@ -1,6 +1,3 @@
-let gridRowCount = 10;
-let gridColumnCount = 10;
-let myGrid = [];
 let digits = [0,1,2,3,4,5,6,7,8,9];
 let qPart1;
 let qPart2;
@@ -13,7 +10,10 @@ let myTimeout;
 let myTimer;
 let time = 30;
 let gridIndex;
-let lastGridIndex;
+//let lastGridIndex;
+let exitIndex;
+let chestCount = 10;
+let exitClick = 0;
 $(function() {
     //generateGrid();
    drawGrid();
@@ -29,8 +29,13 @@ $(function() {
          }
          nextCounter++;
     });
-    $("button.exit").click(function(){
-        location.href="#exit";
+    $("div.exit").click(function(){
+        if(exitClick === 0){
+            $("#grid .exit").css({"background-image" : "url('img/gate.png')"});
+            exitClick++;
+        }else{
+            location.href="#exit";
+        }
     })
     $("button#cancel").click(function(){
         location.href="#field";
@@ -77,7 +82,6 @@ $(function() {
         }else{
             tryCount++;
             chestReset();
-            console.log(tryCount);
             setLife();
         }
     });
@@ -96,33 +100,21 @@ function getAnswer(){
     return $("#digit100").text() * 100 + $("#digit10").text() * 10 + $("#digit1").text() * 1;
 }
 
-function generateGrid(){
-    let counter = 0;
-    for (let i=0; i < gridRowCount; i++ ){
-        myGrid[i] = [];
-        for (let j=0; j < gridColumnCount; j++){
-            let index = getRndInteger(0,100);
-            if(index < 10){
-                myGrid[i][j] = $("#grid").append("<button class='chest'>&#f723;</button>")
-            }else{
-                myGrid[i][j] = $("#grid").append("<button>GRAS</button>")
-            }
-        }
-    }
-}
+
 function drawGrid(){
     for (let i = 0; i < 100; i++){
         $("#grid").append("<div></div>");
     }
-    for (let i = 0; i < 10; i++){
-        do{
-            gridIndex = getRndInteger(0,100);
-        }while(gridIndex === lastGridIndex);
-        lastGridIndex = gridIndex;
+    exitIndex = getRndInteger(0,100);
+    $("#grid div").eq(exitIndex).addClass("exit");
+    do{
+        gridIndex = getRndInteger(0,100);
         $("#grid div").eq(gridIndex).addClass("chest");
-        console.log($("#grid div").eq(gridIndex));
-    }
-
+    }while( $(".chest").length < chestCount );
+    do{
+        exitIndex = getRndInteger(0,100);
+    }while($("#grid div").eq(exitIndex).hasClass("chest"));
+    console.log($("#grid div").eq(exitIndex));
 }
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;

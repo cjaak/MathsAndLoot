@@ -10,6 +10,7 @@
     --lightcolor: #E7EEE2;
     --accentlight: #8494A8;
     --accentdark: #758696;
+    --background: #faebd7;
 }
 
 html {
@@ -69,22 +70,36 @@ button {
     border: 3px solid black;
 }
 
+#field{
+    background-color: var(--background);
+}
+
 #grid {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
 }
 
+.fancy-border {
+    border-width: 8px;
+    border-style: solid;
+    border-image: linear-gradient(to right bottom, #D2691E, #FFD700) 1;
+}
+
 #grid div{
     height: 70px;
     width: 70px;
-    background-color: green;
+    background-color: #95a651;
     border: 1px solid black;
+    background-size: cover;
 }
 
-#grid .chest{
-    background-color: red;
+#grid .chest, #grid .exit{
+    background-image: url("../img/block.png");
 }
+
+
+
 .status{
     position: absolute;
     top: 10px;
@@ -114,7 +129,7 @@ button {
 }
 
 #chest{
-   background-color: antiquewhite;
+   background-color: var(--background);
     position: relative;
 }
 
