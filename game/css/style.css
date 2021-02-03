@@ -80,11 +80,11 @@ button {
     grid-template-rows: repeat(10, 1fr);
 }
 
-.fancy-border {
-    border-width: 8px;
-    border-style: solid;
-    border-image: linear-gradient(to right bottom, #D2691E, #FFD700) 1;
-}
+/*.fancy-border {*/
+/*    border-width: 8px;*/
+/*    border-style: solid;*/
+/*    border-image: linear-gradient(to right bottom, #D2691E, #FFD700) 1;*/
+/*}*/
 
 #grid div{
     height: 70px;
