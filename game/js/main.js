@@ -44,10 +44,15 @@ let delay = 1500; //Abstand zur nächsten Aufgabe nach Fehler/Zeit um
  * Dies ist die Haupt-jquery-Funktion. Sie regelt sämtliche Click-Events
  * */
 $(function() {
-    let exitClick = 0;
-    let nextCounter = 0;
-    let contentText = "";
+    let exitClick = 0; //Anzahl der Klicks auf div.exit
+    let nextCounter = 0; //Anzahl der Klicks auf "weiter" im Tutorial
+    let contentText; //Inhalt Textteil Tutorial
+
     drawGrid();
+
+    /**
+     * Diese Funktion erneuert pro weiter-Klick den Inhalt der Tutorial Seite.
+     * */
     $("#continue").on( 'click', function() {
          switch (nextCounter){
 
@@ -62,6 +67,7 @@ $(function() {
         $("#tutorialText p").html(contentText);
          nextCounter++;
     });
+
     $("div.exit").on( 'click',function(){
         if(exitClick === 0){
             $("#grid .exit").css({"background-image" : "url('img/gate.png')"});
@@ -69,20 +75,24 @@ $(function() {
         }else{
             location.href="#exit";
         }
-    })
+    });
+
     $("button#cancel").on( 'click',function(){
         location.href="#field";
-    })
+    });
+
     $("button#exitGame").on( 'click',function(){
         location.href="#menu";
         location.reload();
-    })
+    });
+
     $("div.chest").on( 'click',function (){
         $(this).removeClass("chest");
         location.href="#chest";
         tryCount = 0;
         chestReset();
-    })
+    });
+
     $(".arrows button").on( 'click',function(){
         let position = $(this).attr("class");
         let newIndex;
@@ -116,6 +126,7 @@ $(function() {
             setLife();
         }
     });
+
     $("#chest .return").on('click', function (){
         stopTimeControl();
     })
