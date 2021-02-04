@@ -1,5 +1,5 @@
 /**@type {number[]}*/
-let digits = [0,1,2,3,4,5,6,7,8,9];
+const digits = [0,1,2,3,4,5,6,7,8,9];
 
 /**@type {number}*/
 let solution; //Lösung
@@ -17,28 +17,28 @@ let myTimeout; //setTimeout-Id zum stoppen
 let myTimer; //setInterval-Id zum stoppen
 
 /**@type {number}*/
-let time = 30; //Zeit zum bearbeiten der Aufgabe in Sekunden
+const time = 30; //Zeit zum bearbeiten der Aufgabe in Sekunden
 
 /**@type {number}*/
-let gridColumn = 10; //Anzahl der Spalten des Spielfelds
+const gridColumn = 10; //Anzahl der Spalten des Spielfelds
 
 /**@type {number}*/
-let gridRow = 10; //Anzahl der Reihen des Spielfelds
+const gridRow = 10; //Anzahl der Reihen des Spielfelds
 
 /**@type {string}*/
 let gridDivSize = "70px";
 
 /**@type {number}*/
-let chestCount = 10; //Anzahl der initialisierten Kisten
+const chestCount = 10; //Anzahl der initialisierten Kisten
 
 /**@type {number}*/
-let definedRangeOfNumbersMin = 0; //Zahlenraum von
+const definedRangeOfNumbersMin = 0; //Zahlenraum von
 
 /**@type {number}*/
-let definedRangeOfNumbersMax = 100; //Zahlenraum bis
+const definedRangeOfNumbersMax = 100; //Zahlenraum bis
 
 /**@type {number}*/
-let delay = 1500; //Abstand zur nächsten Aufgabe nach Fehler/Zeit um
+const delay = 1500; //Abstand zur nächsten Aufgabe nach Fehler/Zeit um
 
 /**
  * Dies ist die Haupt-jquery-Funktion. Sie regelt sämtliche Click-Events
@@ -46,29 +46,26 @@ let delay = 1500; //Abstand zur nächsten Aufgabe nach Fehler/Zeit um
 $(function() {
     let exitClick = 0; //Anzahl der Klicks auf div.exit
     let nextCounter = 0; //Anzahl der Klicks auf "weiter" im Tutorial
-    let contentText; //Inhalt Textteil Tutorial
 
     drawGrid();
 
-    /**
-     * Diese Funktion erneuert pro weiter-Klick den Inhalt der Tutorial Seite.
-     * */
-    $("#continue").on( 'click', function() {
-         switch (nextCounter){
-
-             case 0: contentText ="Betritt den Garten und untersuche eine Truhe, indem du auf einen Hinweis Marker klickst. Bedenke jedoch, dass du den Inhalt der Truhe für immer verlierst, wenn du sie nur untersuchst, aber die Aufgabe nicht löst"; break;
-             case 1: contentText ="Du hast für jede Aufgabe " +time+ " Sekunden Zeit. Wenn du es nicht schaffst die Aufgabe in der Zeit zu lösen oder du sie falsch löst, erscheint eine neue Aufgabe und du verlierst ein Leben."; break;
-             case 2: contentText ="Je weniger Leben du verlierst, desto besser wird die Belohnung ausfallen"; break;
-             case 3: contentText ="Vorsicht, sobald du den Garten betrittst, verlierst du die Orientierung und siehst den Ausgang nicht mehr. Suche auch den Ausgang unter einem der Hinweis Marker.";
-                        $("#continue").text("Spiel starten")
-                        break;
-             case 4: location.href="#field"; break;
-         }
-        $("#tutorialText p").html(contentText);
-         nextCounter++;
+    $("#start").on('click touch', function(){
+        location.reload()
+        location.href="#tutorial";
+    })
+    $("#continue").on( 'click touch', function() {
+        nextCounter++;
+        console.log(nextCounter);
+        tutorialClick(nextCounter);
     });
 
-    $("div.exit").on( 'click',function(){
+    $(".return.tutorial a").on('click touch', function (){
+        nextCounter--;
+        console.log(nextCounter);
+        tutorialClick(nextCounter);
+    })
+
+    $("div.exit").on( 'click touch',function(){
         if(exitClick === 0){
             $("#grid .exit").css({"background-image" : "url('img/gate.png')"});
             exitClick++;
@@ -77,23 +74,22 @@ $(function() {
         }
     });
 
-    $("button#cancel").on( 'click',function(){
+    $("button#cancel").on( 'click touch',function(){
         location.href="#field";
     });
 
-    $("button#exitGame").on( 'click',function(){
+    $("button#exitGame").on( 'click touch',function(){
         location.href="#menu";
-        location.reload();
     });
 
-    $("div.chest").on( 'click',function (){
+    $("div.chest").on( 'click touch',function (){
         $(this).removeClass("chest");
         location.href="#chest";
         tryCount = 0;
         chestReset();
     });
 
-    $(".arrows button").on( 'click',function(){
+    $(".arrows button").on( 'click touch',function(){
         let position = $(this).attr("class");
         let newIndex;
         let currentDigit = parseInt($("span." + position).text());
@@ -113,7 +109,7 @@ $(function() {
         $("span." + position).text(digits[newIndex]);
     });
 
-    $("#ok").on( 'click',function (){
+    $("#ok").on( 'click touch',function (){
         disableButtons();
         stopTimeControl();
         if(checkAnswer()){
@@ -127,7 +123,7 @@ $(function() {
         }
     });
 
-    $("#chest .return").on('click', function (){
+    $("#chest .return").on('click touch', function (){
         stopTimeControl();
     })
 });
@@ -159,22 +155,9 @@ function getAnswer(){
  * Diese Funktion legt die Anzahl der Reihen und Spalten des Spielfelds fest.
  * */
 function setGridRowAndColumn(){
-    let rowString = "";
-    let columnString = "";
-
-    for (let i = 0; i<gridRow; i++){
-        rowString += gridDivSize+ ", ";
-        if(i===rowString-1) rowString = rowString.substr(0, rowString.length -2);
-    }
-
-    for (let i = 0; i<gridColumn; i++){
-        columnString += gridDivSize+ ", ";
-        if(i===gridColumn-1) columnString = columnString.substr(0, columnString.length -2);
-    }
-
     $("#grid").css({
-        "grid-template-rows" : rowString,
-        "grid-template-columns" : columnString
+        "grid-template-rows" : "repeat("+ gridRow+", 1fr)",
+        "grid-template-columns" : "repeat("+ gridColumn+", 1fr)"
     });
 }
 
@@ -190,15 +173,14 @@ function drawGrid(){
     for (let i = 0; i < sizeOfGrid; i++){
         $("#grid").append("<div></div>");
     }
+    exitIndex = getRndInteger(0,sizeOfGrid-1);
+    $("#grid div").eq(exitIndex).addClass("exit");
 
     do{
         gridIndex = getRndInteger(0,sizeOfGrid-1);
         if(gridIndex !== exitIndex) $("#grid div").eq(gridIndex).addClass("chest");
     }while( $(".chest").length < chestCount );
-    do{
-        exitIndex = getRndInteger(0,sizeOfGrid-1);
-    }while($("#grid div").eq(exitIndex).hasClass("chest"));
-    $("#grid div").eq(exitIndex).addClass("exit");
+
 }
 
 /**
@@ -228,14 +210,38 @@ function createSummation(){
     return questionArray;
 }
 
+function createSubtraction() {
+    let qPart1, qPart2, qPart3;
+    do{
+        qPart1 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
+        qPart2 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
+        qPart3 = qPart1 - qPart2;
+    }while(qPart3 < definedRangeOfNumbersMin || qPart1 === qPart2)
+    let questionArray = [qPart1, qPart2, qPart3];
+    console.log(questionArray);
+    return questionArray;
+}
+
 /**
- * Diese Funktion gibt die Aufgabe aus. Dabei wird zufällig eine der drei Stellen bei der Ausgabe weggelassen. Dies ist der zu lösende Teil.
+ * Diese Funktion gibt die zufällig eine Addition oder Subtraktion Aufgabe aus. Dabei wird zufällig eine der drei Stellen bei der Ausgabe weggelassen. Dies ist der zu lösende Teil.
  *
  * */
 function generateQuestion(){
-    let questionArray = createSummation();
+    let questionArray;
+    let operator;
+    let chooseOperator = getRndInteger(0,1);
+    switch (chooseOperator) {
+        case 0:
+            questionArray = createSummation();
+            operator = " + ";
+            break;
+        case 1:
+            questionArray = createSubtraction();
+            operator = " - ";
+            break;
+    }
+
     solution = questionArray[getRndInteger(0,2)];
-    let operator = " + ";
     let q1 = (solution === questionArray[0]) ? "....." : questionArray[0];
     let q2 = (solution === questionArray[1]) ? "....." : questionArray[1];
     let q3 = (solution === questionArray[2]) ? "....." : questionArray[2];
@@ -351,4 +357,38 @@ function setLife(){
         case 3: $('.lives span#heart1').hide(); break;
 
     }
+}
+/**
+ * Diese Funktion steuert das vor und zurück Klicken im Tutorial, sowie dessen Inhalt.
+ * @param {number} counter Zählvariable, um festzustellen, welcher Content als nächstes angezeigt wird.
+ * */
+function tutorialClick(counter){
+    let contentText; //Inhalt Textteil Tutorial
+    let backgroundImg;
+    switch (counter){
+        case -1: $(".return.tutorial a").attr("href", "#menu"); break;
+        case 0: contentText = "Willkommen im im Hof von der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung in Truhen in seinem Garten versteckt. Allerdings ist die Zaubererin sehr vergesslich und hat die Truhen deswegen so verzaubert, dass ein Lösungshinweis für das Zahlenschloss, mit dem die Truhen verschlossen sind, auf den Deckeln der Truhen erscheint. Du musst mir helfen meine Münzen wieder zu erhalten!";
+            backgroundImg = "";
+            $(".return.tutorial a").attr("href", "#tutorial");
+            break;
+        case 1: contentText ="Betritt den Garten und untersuche eine Truhe, indem du auf einen Hinweis Marker klickst. Bedenke jedoch, dass du den Inhalt der Truhe für immer verlierst, wenn du sie nur untersuchst, aber die Aufgabe nicht löst";
+            backgroundImg = "url('img/screenshots/grid.png')";
+            break;
+        case 2: contentText ="Du hast für jede Aufgabe " +time+ " Sekunden Zeit. Wenn du es nicht schaffst die Aufgabe in der Zeit zu lösen oder du sie falsch löst, erscheint eine neue Aufgabe und du verlierst ein Leben. Ändere die aktuelle Stelle, indem du jeweils die 1er, 10er oder 100er Stelle verstellst.";
+            backgroundImg = "url('img/screenshots/chestdialog.png')";
+            break;
+        case 3: contentText ="Je weniger Leben du verlierst, desto besser wird die Belohnung ausfallen";
+            backgroundImg = "url('img/screenshots/reward.png')";
+            break;
+
+        case 4: contentText ="Vorsicht, sobald du den Garten betrittst, verlierst du die Orientierung und siehst den Ausgang nicht mehr. Suche auch den Ausgang unter einem der Hinweis Marker.";
+            backgroundImg = "url('img/screenshots/grid.png')";
+            $("#continue").text("Spiel starten");
+            break;
+        default: location.href="#field"; break;
+    }
+    $("#tutorialText p").html(contentText);
+    $("#screenshot").css({
+        "background-image": backgroundImg
+    });
 }

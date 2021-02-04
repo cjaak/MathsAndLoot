@@ -1,3 +1,4 @@
+/*Allgemein*/
 * {
     margin: 0;
     padding: 0;
@@ -42,15 +43,61 @@ button {
     background-color: var(--background);
 }
 
-#menu{
-    background-color: var(--darkcolor);
+.status{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    height: 150px;
+    background-color: #f6d190;
+    border-radius: 24px;
+    padding: 20px;
+    font-size: 30px;
 }
+
+.status img{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}
+.return {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.return a, #credits .return a{
+    display: block;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    text-decoration: none;
+    border: 3px solid var(--gold);
+    background-color: #fff5d7;
+    color: var(--gold);
+}
+
+.return a:hover, #credits .return a:hover{
+    border: 3px solid #fff5d7;
+    background-color: var(--gold);
+    color: #fff5d7;
+}
+
+
 
 ul{
     list-style: none;
     display: flex;
     flex-flow: column;
 }
+
+/*Menu*/
+#menu{
+    background-color: var(--darkcolor);
+}
+
 
 #menu ul li a{
     display: block;
@@ -67,6 +114,7 @@ ul{
     border: 1px solid var(--contrast);
 }
 
+/*Tutorial*/
 .skip{
     position: absolute;
     top: 0;
@@ -107,14 +155,17 @@ ul{
     padding: 50px;
 }
 
+
+/*Credits*/
 #screenshot{
     position: absolute;
     bottom: 300px;
     left: 0;
+    top: 0;
     width: 100%;
-    height: calc(100vh - 300px);
-    border: 3px solid red;
-
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 #credits ul{
@@ -156,18 +207,15 @@ ul{
     border-radius: 30px 30px 0 0;
 }
 
+/*Spielfeld*/
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    border-width: 8px;
+    border-style: solid;
+    border-image: linear-gradient(to right bottom, #D2691E, #FFD700) 1;
 }
 
-/*.fancy-border {*/
-/*    border-width: 8px;*/
-/*    border-style: solid;*/
-/*    border-image: linear-gradient(to right bottom, #D2691E, #FFD700) 1;*/
-/*}*/
 
 #grid div{
     height: 70px;
@@ -181,25 +229,7 @@ ul{
     background-image: url("../img/block.png");
 }
 
-
-
-.status{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 200px;
-    height: 150px;
-    background-color: #f6d190;
-    border-radius: 24px;
-    padding: 20px;
-    font-size: 30px;
-}
-
-.status img{
-    height: 30px;
-    width: 30px;
-    margin-left: 10px;
-}
+/*Aufgaben Dialog*/
 
 .lives {
     color: red;
@@ -287,16 +317,6 @@ ul{
 }
 
 
-
-/*#ok{
-    background-color: #fff5d7;
-    width: 50px;
-    color: #DAA520;
-    border: 2px solid #DAA520;
-    border-radius: 50%;
-    height: 2.75em;
-    line-height: 2.5em;
-}*/
 /*https://codepen.io/rcherem/pen/Kxpgdr*/
 .golden-btn {
     display: inline-block;
@@ -369,30 +389,6 @@ ul{
     font-size: 30px;
 }
 
-.return {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.return a, #credits .return a{
-    display: block;
-    width: 150px;
-    height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 50px;
-    text-decoration: none;
-    border: 3px solid var(--gold);
-    background-color: #fff5d7;
-    color: var(--gold);
-}
-
-.return a:hover, #credits .return a:hover{
-    border: 3px solid #fff5d7;
-    background-color: var(--gold);
-    color: #fff5d7;
-}
 
 
 @keyframes roundtime {

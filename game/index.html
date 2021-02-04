@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MathAndLoot</title>
+    <title>Zahlgies Garten</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500&family=Indie+Flower&display=swap" rel="stylesheet">
@@ -11,43 +11,48 @@
 </head>
 <body>
 
+<!--Menu-->
 <div class="box" id="menu">
     <ul>
-        <li><a href="#tutorial">Start</a></li>
-        <li><a href="#exit">Exit</a></li>
-        <li><a href="#field">Field</a></li>
+        <li><a href="#tutorial" id="start">Start</a></li>
+<!--        <li><a href="#exit">Exit</a></li>-->
+<!--        <li><a href="#field">Field</a></li>-->
         <li><a href="#credits">Credits</a></li>
     </ul>
 </div>
 
+<!--Tutorial-->
 <div class="box" id="tutorial">
     <div>
-        <div id="screenshot"></div>
+        <div class="imgBox">
+            <div id="screenshot"></div>
+        </div>
         <div id="tutorialText">
-            <p>Willkommen im im Hof vom bösen Magier Lord Zahlius. Lord Zahlius hat meine wertvolle Münzsammlung
-                in Truhen in seinem Garten versteckt. Allerdings ist der Zauberer sehr vergesslich und hat deswegen einen Lösungshinweis für das
-                Zahlenschloss, mit dem die Truhen verschlossen sind, auf den Deckeln der Truhen hinterlassen. Du musst mir helfen sie wieder zu erhalten!</p>
+            <p>Willkommen im im Hof von der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung
+                in Truhen in seinem Garten versteckt. Allerdings ist die Zaubererin sehr vergesslich und hat die Truhen deswegen so verzaubert, dass ein Lösungshinweis für das
+                Zahlenschloss, mit dem die Truhen verschlossen sind, auf den Deckeln der Truhen erscheint. Du musst mir helfen meine Münzen wieder zu erhalten!</p>
          <button id="continue">weiter</button>
         </div>
         <div class="skip">
             <a href="#field">Direkt anfangen <br> zu spielen</a>
         </div>
-        <div class="return">
-            <a href="#menu">&#9754; zurück</a>
+        <div class="return tutorial">
+            <a href="#tutorial">&#9754; zurück</a>
         </div>
     </div>
 </div>
 
+<!--Spielfel-->
 <div class="box" id="field">
     <div class="status">
         <span class="coins">0</span><img src="img/coin.png" alt="coin" height="30px" width="30px">
     </div>
     <div>
         <div id="grid"></div>
-        <div></div>
     </div>
 </div>
 
+<!--Credits-->
 <div class="box" id="credits">
     <div>
         <ul>
@@ -79,7 +84,7 @@
 </div>
 
 
-
+<!--Aufgaben Dialog-->
 <div class="box" id="chest">
     <div class="status">
         <span class="coins">0</span><img src="img/coin.png" alt="coin" height="30px" width="30px">
@@ -130,6 +135,7 @@
     </div>
 </div>
 
+<!--Endbildschirm-->
 <div class="box" id="exit">
     <div>
         Du hast <span class="coins">0</span>/30 Münzen gesammelt. Bist du fertig?
