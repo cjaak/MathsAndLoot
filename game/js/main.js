@@ -71,28 +71,26 @@ $(function() {
         tryCount = 0;
         chestReset();
     })
-    $(".arrows.up button").on( 'click',function(){
+    $(".arrows button").on( 'click',function(){
         let position = $(this).attr("class");
         let newIndex;
         let currentDigit = parseInt($("span." + position).text());
-        if(currentDigit === digits[digits.length -1]){
-            newIndex = 0;
-        }else {
-            newIndex = findIndexInDigits(currentDigit) + 1;
+        if ($(this).parent().hasClass("up")){
+            if(currentDigit === digits[digits.length -1]){
+                newIndex = 0;
+            }else {
+                newIndex = findIndexInDigits(currentDigit) + 1;
+            }
+        }else{
+            if(currentDigit === digits[0]){
+                newIndex = digits.length -1;
+            }else {
+                newIndex = findIndexInDigits(currentDigit) - 1;
+            }
         }
         $("span." + position).text(digits[newIndex]);
     });
-    $(".arrows.down button").on( 'click',function(){
-        let position = $(this).attr("class");
-        let newIndex;
-        currentDigit = parseInt($("span." + position).text());
-        if(currentDigit === digits[0]){
-            newIndex = digits.length -1;
-        }else {
-            newIndex = findIndexInDigits(currentDigit) - 1;
-        }
-        $("span." + position).text(digits[newIndex]);
-    });
+    
     $("#ok").on( 'click',function (){
         disableButtons();
         stopTimeControl();
