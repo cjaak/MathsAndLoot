@@ -6,6 +6,8 @@
 
 :root{
     --darkcolor: #1F2A3D;
+    --gold: #DAA520;
+    --grass: #95a651;
     --contrast: #C94255;
     --lightcolor: #E7EEE2;
     --accentlight: #8494A8;
@@ -34,13 +36,15 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    background-color: var(--background);
 }
 
 #menu{
     background-color: var(--darkcolor);
 }
 
-#menu ul{
+ul{
     list-style: none;
     display: flex;
     flex-flow: column;
@@ -70,9 +74,45 @@ button {
     border: 3px solid black;
 }
 
-#field{
-    background-color: var(--background);
+#credits ul{
+    background-color: #966a5b;
+    padding: 20px;
+    border-radius: 30px;
+    border: 3px solid var(--gold);
 }
+
+#credits li:last-child{
+    color: var(--gold);
+}
+
+#credits li{
+    text-align: center;
+    padding: 10px;
+}
+
+#credits a{
+    color: black;
+    text-decoration: none;
+}
+
+#credits a:hover{
+    color: var(--gold);
+}
+
+#credits .return a:hover{
+
+}
+
+.grass{
+    background-color: var(--grass);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 190px;
+    border-radius: 30px 30px 0 0;
+}
+
 
 #grid {
     display: grid;
@@ -127,12 +167,6 @@ button {
 .lives span{
     margin-right: 7px;
 }
-
-#chest{
-   background-color: var(--background);
-    position: relative;
-}
-
 
 .chestBackground{
     background-image: url("../img/truhe.png");
@@ -298,7 +332,7 @@ button {
     left: 0;
 }
 
-.return a{
+.return a, #credits .return a{
     display: block;
     width: 150px;
     height: 50px;
@@ -306,17 +340,16 @@ button {
     vertical-align: middle;
     line-height: 50px;
     text-decoration: none;
-    border: 3px solid #DAA520;
+    border: 3px solid var(--gold);
     background-color: #fff5d7;
-    color: #DAA520;
+    color: var(--gold);
 }
 
-.return a:hover{
+.return a:hover, #credits .return a:hover{
     border: 3px solid #fff5d7;
-    background-color: #DAA520;
+    background-color: var(--gold);
     color: #fff5d7;
 }
-
 
 
 @keyframes roundtime {
