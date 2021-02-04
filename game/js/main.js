@@ -115,11 +115,7 @@ $(function() {
         if(checkAnswer()){
             generateLoot()
         }else{
-            tryCount++;
-            setTimeout(function (){
-                chestReset();
-            },delay);
-            setLife();
+            failedAttempt();
         }
     });
 
@@ -204,7 +200,7 @@ function createSummation(){
         qPart1 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart2 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart3 = qPart1 + qPart2;
-    }while(qPart3 > definedRangeOfNumbersMax || qPart1 === qPart2)
+    }while(qPart3 > definedRangeOfNumbersMax || checkForSameNumbers(qPart1,qPart2,qPart3))
     let questionArray = [qPart1, qPart2, qPart3];
     console.log(questionArray);
     return questionArray;
@@ -221,10 +217,18 @@ function createSubtraction() {
         qPart1 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart2 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart3 = qPart1 - qPart2;
-    }while(qPart3 < definedRangeOfNumbersMin || qPart1 === qPart2)
+    }while(qPart3 < definedRangeOfNumbersMin || checkForSameNumbers(qPart1,qPart2,qPart3))
     let questionArray = [qPart1, qPart2, qPart3];
     console.log(questionArray);
     return questionArray;
+}
+
+/**
+ * Diese Funktion überprüft, ob unter drei Zahlen gleiche sind
+ * @returns {boolean} wenn mindestens zwei gleich sind true
+ * */
+function checkForSameNumbers(num1, num2, num3){
+    return num1 === num2 || num1 === num3 || num2 === num3;
 }
 
 /**
@@ -252,6 +256,7 @@ function generateQuestion(){
     let q3 = (solution === questionArray[2]) ? "....." : questionArray[2];
     $("#question").text((q1 +  operator  + q2 + " = " + q3));
 }
+
 /**
  * Diese Funktion überprüft, ob die User Eingabe mit der korrekten Lösung übereinstimmt
  * @returns {boolean} Die Übereinstimmung
@@ -300,6 +305,7 @@ function chestReset(){
         generateLoot();
     }
 }
+
 /**
  * Diese Funktion aktiviert den OK Button, sowie die hoch und runter Buttons am Zahlenrad
  * */
@@ -307,6 +313,7 @@ function activateButtons(){
     $("#ok").prop('disabled', false);
     $(".lock button").prop('disabled', false);
 }
+
 /**
  * Diese Funktion deaktiviert den OK Button, sowie die hoch und runter Buttons am Zahlenrad
  * */
@@ -331,16 +338,23 @@ function startTimeControl(){
         clearInterval(myTimer);
         $(".myTimer").text(0);
         if(tryCount < 3){
-            tryCount++;
-            setLife();
-            $("#ok").prop('disabled', true);
-            $(".lock button").prop('disabled', true);
-            setTimeout(function (){
-                chestReset();
-            }, delay);
+           failedAttempt();
         }
     }, time*1000);
 }
+
+/**
+ * Diese Funktion regelt das Prozedere, nachdem es dem Spieler nicht möglich war, die richtige Antwort rechtzeitig anzugeben.
+ * */
+function failedAttempt(){
+    tryCount++;
+    setLife();
+    disableButtons();
+    setTimeout(function (){
+        chestReset();
+    }, delay);
+}
+
 /**
  * Diese Funktion stoppt den Timer und blendet diesen aus.
  * */
