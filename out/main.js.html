@@ -143,11 +143,7 @@ $(function() {
         if(checkAnswer()){
             generateLoot()
         }else{
-            tryCount++;
-            setTimeout(function (){
-                chestReset();
-            },delay);
-            setLife();
+            failedAttempt();
         }
     });
 
@@ -232,22 +228,35 @@ function createSummation(){
         qPart1 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart2 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart3 = qPart1 + qPart2;
-    }while(qPart3 > definedRangeOfNumbersMax || qPart1 === qPart2)
+    }while(qPart3 > definedRangeOfNumbersMax || checkForSameNumbers(qPart1,qPart2,qPart3))
     let questionArray = [qPart1, qPart2, qPart3];
     console.log(questionArray);
     return questionArray;
 }
 
+/**
+ * Diese Funktion erstellt eine Subtraktionsaufgabe.
+ *
+ * @returns {number[]} Das Array mit dem Inhalt: [ Minuend, Subtrahend, Differenz]
+ * */
 function createSubtraction() {
     let qPart1, qPart2, qPart3;
     do{
         qPart1 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart2 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart3 = qPart1 - qPart2;
-    }while(qPart3 &lt; definedRangeOfNumbersMin || qPart1 === qPart2)
+    }while(qPart3 &lt; definedRangeOfNumbersMin || checkForSameNumbers(qPart1,qPart2,qPart3))
     let questionArray = [qPart1, qPart2, qPart3];
     console.log(questionArray);
     return questionArray;
+}
+
+/**
+ * Diese Funktion überprüft, ob unter drei Zahlen gleiche sind
+ * @returns {boolean} wenn mindestens zwei gleich sind true
+ * */
+function checkForSameNumbers(num1, num2, num3){
+    return num1 === num2 || num1 === num3 || num2 === num3;
 }
 
 /**
@@ -275,6 +284,7 @@ function generateQuestion(){
     let q3 = (solution === questionArray[2]) ? "....." : questionArray[2];
     $("#question").text((q1 +  operator  + q2 + " = " + q3));
 }
+
 /**
  * Diese Funktion überprüft, ob die User Eingabe mit der korrekten Lösung übereinstimmt
  * @returns {boolean} Die Übereinstimmung
@@ -323,6 +333,7 @@ function chestReset(){
         generateLoot();
     }
 }
+
 /**
  * Diese Funktion aktiviert den OK Button, sowie die hoch und runter Buttons am Zahlenrad
  * */
@@ -330,6 +341,7 @@ function activateButtons(){
     $("#ok").prop('disabled', false);
     $(".lock button").prop('disabled', false);
 }
+
 /**
  * Diese Funktion deaktiviert den OK Button, sowie die hoch und runter Buttons am Zahlenrad
  * */
@@ -354,16 +366,23 @@ function startTimeControl(){
         clearInterval(myTimer);
         $(".myTimer").text(0);
         if(tryCount &lt; 3){
-            tryCount++;
-            setLife();
-            $("#ok").prop('disabled', true);
-            $(".lock button").prop('disabled', true);
-            setTimeout(function (){
-                chestReset();
-            }, delay);
+           failedAttempt();
         }
     }, time*1000);
 }
+
+/**
+ * Diese Funktion regelt das Prozedere, nachdem es dem Spieler nicht möglich war, die richtige Antwort rechtzeitig anzugeben.
+ * */
+function failedAttempt(){
+    tryCount++;
+    setLife();
+    disableButtons();
+    setTimeout(function (){
+        chestReset();
+    }, delay);
+}
+
 /**
  * Diese Funktion stoppt den Timer und blendet diesen aus.
  * */
@@ -430,13 +449,13 @@ function tutorialClick(counter){
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButtons">activateButtons</a></li><li><a href="global.html#checkAnswer">checkAnswer</a></li><li><a href="global.html#chestCount">chestCount</a></li><li><a href="global.html#chestReset">chestReset</a></li><li><a href="global.html#coinCount">coinCount</a></li><li><a href="global.html#createSummation">createSummation</a></li><li><a href="global.html#definedRangeOfNumbersMax">definedRangeOfNumbersMax</a></li><li><a href="global.html#definedRangeOfNumbersMin">definedRangeOfNumbersMin</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#digits">digits</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#findIndexInDigits">findIndexInDigits</a></li><li><a href="global.html#generateLoot">generateLoot</a></li><li><a href="global.html#generateQuestion">generateQuestion</a></li><li><a href="global.html#getAnswer">getAnswer</a></li><li><a href="global.html#getRndInteger">getRndInteger</a></li><li><a href="global.html#gridColumn">gridColumn</a></li><li><a href="global.html#gridDivSize">gridDivSize</a></li><li><a href="global.html#gridRow">gridRow</a></li><li><a href="global.html#myTimeout">myTimeout</a></li><li><a href="global.html#myTimer">myTimer</a></li><li><a href="global.html#setGridRowAndColumn">setGridRowAndColumn</a></li><li><a href="global.html#setLife">setLife</a></li><li><a href="global.html#solution">solution</a></li><li><a href="global.html#startTimeControl">startTimeControl</a></li><li><a href="global.html#stopTimeControl">stopTimeControl</a></li><li><a href="global.html#time">time</a></li><li><a href="global.html#tryCount">tryCount</a></li><li><a href="global.html#tutorialClick">tutorialClick</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButtons">activateButtons</a></li><li><a href="global.html#checkAnswer">checkAnswer</a></li><li><a href="global.html#checkForSameNumbers">checkForSameNumbers</a></li><li><a href="global.html#chestCount">chestCount</a></li><li><a href="global.html#chestReset">chestReset</a></li><li><a href="global.html#coinCount">coinCount</a></li><li><a href="global.html#createSubtraction">createSubtraction</a></li><li><a href="global.html#createSummation">createSummation</a></li><li><a href="global.html#definedRangeOfNumbersMax">definedRangeOfNumbersMax</a></li><li><a href="global.html#definedRangeOfNumbersMin">definedRangeOfNumbersMin</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#digits">digits</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#failedAttempt">failedAttempt</a></li><li><a href="global.html#findIndexInDigits">findIndexInDigits</a></li><li><a href="global.html#generateLoot">generateLoot</a></li><li><a href="global.html#generateQuestion">generateQuestion</a></li><li><a href="global.html#getAnswer">getAnswer</a></li><li><a href="global.html#getRndInteger">getRndInteger</a></li><li><a href="global.html#gridColumn">gridColumn</a></li><li><a href="global.html#gridDivSize">gridDivSize</a></li><li><a href="global.html#gridRow">gridRow</a></li><li><a href="global.html#myTimeout">myTimeout</a></li><li><a href="global.html#myTimer">myTimer</a></li><li><a href="global.html#setGridRowAndColumn">setGridRowAndColumn</a></li><li><a href="global.html#setLife">setLife</a></li><li><a href="global.html#solution">solution</a></li><li><a href="global.html#startTimeControl">startTimeControl</a></li><li><a href="global.html#stopTimeControl">stopTimeControl</a></li><li><a href="global.html#time">time</a></li><li><a href="global.html#tryCount">tryCount</a></li><li><a href="global.html#tutorialClick">tutorialClick</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Feb 04 2021 16:21:27 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Feb 04 2021 17:00:03 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
