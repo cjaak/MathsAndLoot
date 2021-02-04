@@ -2,34 +2,43 @@
 let digits = [0,1,2,3,4,5,6,7,8,9];
 
 /**@type {number}*/
-let solution;
+let solution; //Lösung
 
 /**@type {number}*/
-let tryCount = 0;
+let tryCount = 0; //verbrauchte Versuche
 
 /**@type {number}*/
-let coinCount = 0;
-
-/**@type {any}*/
-let myTimeout;
-
-/**@type {any}*/
-let myTimer;
+let coinCount = 0; //gesammelte Münzen
 
 /**@type {number}*/
-let time = 30;
+let myTimeout; //setTimeout-Id zum stoppen
 
 /**@type {number}*/
-let gridColumn = 10;
-let gridRow = 10;
+let myTimer; //setInterval-Id zum stoppen
+
+/**@type {number}*/
+let time = 30; //Zeit zum bearbeiten der Aufgabe in Sekunden
+
+/**@type {number}*/
+let gridColumn = 10; //Anzahl der Spalten des Spielfelds
+
+/**@type {number}*/
+let gridRow = 10; //Anzahl der Reihen des Spielfelds
+
+/**@type {string}*/
 let gridDivSize = "70px";
 
 /**@type {number}*/
-let chestCount = 10;
+let chestCount = 10; //Anzahl der initialisierten Kisten
 
-let definedRangeOfNumbers = 100;
+/**@type {number}*/
+let definedRangeOfNumbersMin = 0; //Zahlenraum von
 
-let delay = 1500;
+/**@type {number}*/
+let definedRangeOfNumbersMax = 100; //Zahlenraum bis
+
+/**@type {number}*/
+let delay = 1500; //Abstand zur nächsten Aufgabe nach Fehler/Zeit um
 
 /**
  * Dies ist die Haupt-jquery-Funktion. Sie regelt sämtliche Click-Events
@@ -41,10 +50,13 @@ $(function() {
     drawGrid();
     $("#continue").on( 'click', function() {
          switch (nextCounter){
-             case 0: contentText = "einmal weiter"; break;
-             case 1: contentText ="zweimal weiter"; break;
-             case 2: contentText ="dreimal weiter"; break;
-             case 3: contentText ="viermal weiter"; break;
+
+             case 0: contentText ="Betritt den Garten und untersuche eine Truhe, indem du auf einen Hinweis Marker klickst. Bedenke jedoch, dass du den Inhalt der Truhe für immer verlierst, wenn du sie nur untersuchst, aber die Aufgabe nicht löst"; break;
+             case 1: contentText ="Du hast für jede Aufgabe " +time+ " Sekunden Zeit. Wenn du es nicht schaffst die Aufgabe in der Zeit zu lösen oder du sie falsch löst, erscheint eine neue Aufgabe und du verlierst ein Leben."; break;
+             case 2: contentText ="Je weniger Leben du verlierst, desto besser wird die Belohnung ausfallen"; break;
+             case 3: contentText ="Vorsicht, sobald du den Garten betrittst, verlierst du die Orientierung und siehst den Ausgang nicht mehr. Suche auch den Ausgang unter einem der Hinweis Marker.";
+                        $("#continue").text("Spiel starten")
+                        break;
              case 4: location.href="#field"; break;
          }
         $("#tutorialText p").html(contentText);
@@ -196,10 +208,10 @@ function getRndInteger(min, max) {
 function createSummation(){
     let qPart1, qPart2, qPart3;
     do{
-        qPart1 = getRndInteger(1,definedRangeOfNumbers);
-        qPart2 = getRndInteger(1,definedRangeOfNumbers);
+        qPart1 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
+        qPart2 = getRndInteger(definedRangeOfNumbersMin,definedRangeOfNumbersMax);
         qPart3 = qPart1 + qPart2;
-    }while(qPart3 > definedRangeOfNumbers || qPart1 === qPart2)
+    }while(qPart3 > definedRangeOfNumbersMax || qPart1 === qPart2)
     let questionArray = [qPart1, qPart2, qPart3];
     console.log(questionArray);
     return questionArray;
@@ -308,7 +320,7 @@ function startTimeControl(){
     }, time*1000);
 }
 /**
- * Diese Funktion stopt den Timer und blendet diesen aus.
+ * Diese Funktion stoppt den Timer und blendet diesen aus.
  * */
 function stopTimeControl(){
     console.log("clear")
