@@ -210,6 +210,11 @@ function createSummation(){
     return questionArray;
 }
 
+/**
+ * Diese Funktion erstellt eine Subtraktionsaufgabe.
+ *
+ * @returns {number[]} Das Array mit dem Inhalt: [ Minuend, Subtrahend, Differenz]
+ * */
 function createSubtraction() {
     let qPart1, qPart2, qPart3;
     do{
