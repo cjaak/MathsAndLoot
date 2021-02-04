@@ -1,4 +1,32 @@
-/**@type {number[]}*/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**@type {number[]}*/
 let digits = [0,1,2,3,4,5,6,7,8,9];
 
 /**@type {number}*/
@@ -20,37 +48,30 @@ let myTimer;
 let time = 30;
 
 /**@type {number}*/
-let gridColumn = 10;
-let gridRow = 10;
-let gridDivSize = "70px";
+let sizeOfGrid = 100;
 
 /**@type {number}*/
 let chestCount = 10;
-
-let definedRangeOfNumbers = 100;
-
-let delay = 1500;
 
 /**
  * Dies ist die Haupt-jquery-Funktion. Sie regelt sämtliche Click-Events
  * */
 $(function() {
     let exitClick = 0;
-    let nextCounter = 0;
-    let contentText = "";
     drawGrid();
-    $("#weiter").on( 'click', function() {
+    let nextCounter = 0;
+    $("#weiter").click(function() {
          switch (nextCounter){
-             case 0: contentText = "einmal weiter"; break;
-             case 1: contentText ="zweimal weiter"; break;
-             case 2: contentText ="dreimal weiter"; break;
-             case 3: contentText ="viermal weiter"; break;
-             case 4: location.href="#field"; break;
+             case 0: $("#tutorialText p").html("einmal weiter"); break;
+             case 1: $("#tutorialText p").html("zweimal weiter"); break;
+             case 2: $("#tutorialText p").html("dreimal weiter"); break;
+             case 3: $("#tutorialText p").html("viermal weiter"); break;
+             case 4: location.href="#field";
+             default: break;
          }
-        $("#tutorialText p").html(contentText);
          nextCounter++;
     });
-    $("div.exit").on( 'click',function(){
+    $("div.exit").click(function(){
         if(exitClick === 0){
             $("#grid .exit").css({"background-image" : "url('img/gate.png')"});
             exitClick++;
@@ -58,20 +79,19 @@ $(function() {
             location.href="#exit";
         }
     })
-    $("button#cancel").on( 'click',function(){
+    $("button#cancel").click(function(){
         location.href="#field";
     })
-    $("button#exitGame").on( 'click',function(){
+    $("button#exitGame").click(function(){
         location.href="#menu";
-        location.reload();
     })
-    $("div.chest").on( 'click',function (){
+    $("div.chest").click(function (){
         $(this).removeClass("chest");
         location.href="#chest";
         tryCount = 0;
         chestReset();
     })
-    $(".arrows.up button").on( 'click',function(){
+    $(".arrows.up button").click(function(){
         let position = $(this).attr("class");
         let newIndex;
         let currentDigit = parseInt($("span." + position).text());
@@ -82,7 +102,7 @@ $(function() {
         }
         $("span." + position).text(digits[newIndex]);
     });
-    $(".arrows.down button").on( 'click',function(){
+    $(".arrows.down button").click(function(){
         let position = $(this).attr("class");
         let newIndex;
         currentDigit = parseInt($("span." + position).text());
@@ -93,16 +113,14 @@ $(function() {
         }
         $("span." + position).text(digits[newIndex]);
     });
-    $("#ok").on( 'click',function (){
+    $("#ok").click(function (){
         disableButtons();
         stopTimeControl();
         if(checkAnswer()){
             generateLoot()
         }else{
             tryCount++;
-            setTimeout(function (){
-                chestReset();
-            },delay);
+            chestReset();
             setLife();
         }
     });
@@ -115,7 +133,7 @@ $(function() {
  * @returns {number} Index der gefundenen Zahl
  * */
 function findIndexInDigits(num){
-    for (let i=0; i<digits.length; i++){
+    for (let i=0; i&lt;digits.length; i++){
         if (digits[i] === num){
             return i;
         }
@@ -131,50 +149,21 @@ function findIndexInDigits(num){
 function getAnswer(){
     return $("#digit100").text() * 100 + $("#digit10").text() * 10 + $("#digit1").text() * 1;
 }
-/**
- * Diese Funktion legt die Anzahl der Reihen und Spalten des Spielfelds fest.
- * */
-function setGridRowAndColumn(){
-    let rowString = "";
-    let columnString = "";
-
-    for (let i = 0; i<gridRow; i++){
-        console.log(i);
-        rowString += gridDivSize+ ", ";
-        if(i===rowString-1) rowString = rowString.substr(0, rowString.length -2);
-    }
-
-    for (let i = 0; i<gridColumn; i++){
-        console.log(i);
-        columnString += gridDivSize+ ", ";
-        if(i===gridColumn-1) columnString = columnString.substr(0, columnString.length -2);
-    }
-
-    $("#grid").css({
-        "grid-template-rows" : rowString,
-        "grid-template-columns" : columnString
-    });
-    $("#grid").addClass("fancy-border");
-}
 
 /**
  * Diese Funktion erstellt das Spielfeld
  * */
 function drawGrid(){
     let exitIndex, gridIndex;
-    let sizeOfGrid = gridColumn*gridRow;
-
-    setGridRowAndColumn();
-
-    for (let i = 0; i < sizeOfGrid; i++){
-        $("#grid").append("<div></div>");
+    for (let i = 0; i &lt; sizeOfGrid; i++){
+        $("#grid").append("&lt;div>&lt;/div>");
     }
     exitIndex = getRndInteger(0,sizeOfGrid-1);
     $("#grid div").eq(exitIndex).addClass("exit");
     do{
         gridIndex = getRndInteger(0,sizeOfGrid-1);
         if(gridIndex !== exitIndex) $("#grid div").eq(gridIndex).addClass("chest");
-    }while( $(".chest").length < chestCount );
+    }while( $(".chest").length &lt; chestCount );
     do{
         exitIndex = getRndInteger(0,100);
     }while($("#grid div").eq(exitIndex).hasClass("chest"));
@@ -199,10 +188,10 @@ function getRndInteger(min, max) {
 function createSummation(){
     let qPart1, qPart2, qPart3;
     do{
-        qPart1 = getRndInteger(1,definedRangeOfNumbers);
-        qPart2 = getRndInteger(1,definedRangeOfNumbers);
+        qPart1 = getRndInteger(1,100);
+        qPart2 = getRndInteger(1,100);
         qPart3 = qPart1 + qPart2;
-    }while(qPart3 > definedRangeOfNumbers || qPart1 === qPart2)
+    }while(qPart3 > 100 || qPart1 === qPart2)
     let questionArray = [qPart1, qPart2, qPart3];
     console.log(questionArray);
     return questionArray;
@@ -239,7 +228,7 @@ function checkAnswer(){
 function generateLoot(){
     console.log("test");
     $(".reward-card").slideDown(1500);
-    if (tryCount < 3) {
+    if (tryCount &lt; 3) {
         let coinsGained= 0;
         $(".reward").css("background-image", "url(\"img/reward.png\")");
         switch (tryCount){
@@ -293,9 +282,9 @@ function disableButtons(){
  * */
 function startTimeControl(){
     $(".myTimer").text(time);
-    $(".timerBox").html("<div class=\"timer\" style=\"--duration: " + time + " \">\n" +
-        "            <div></div>\n" +
-        "        </div>").show();
+    $(".timerBox").html("&lt;div class=\"timer\" style=\"--duration: 30\">\n" +
+        "            &lt;div>&lt;/div>\n" +
+        "        &lt;/div>").show();
     let seconds = time-1;
     myTimer = setInterval(function (){
         $(".myTimer").text(seconds--);
@@ -303,14 +292,14 @@ function startTimeControl(){
     myTimeout = setTimeout(function () {
         clearInterval(myTimer);
         $(".myTimer").text(0);
-        if(tryCount < 3){
+        if(tryCount &lt; 3){
             tryCount++;
             setLife();
             $("#ok").prop('disabled', true);
             $(".lock button").prop('disabled', true);
             setTimeout(function (){
                 chestReset();
-            }, delay);
+            }, 3000);
         }
     }, time*1000);
 }
@@ -335,3 +324,26 @@ function setLife(){
 
     }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateButtons">activateButtons</a></li><li><a href="global.html#checkAnswer">checkAnswer</a></li><li><a href="global.html#chestCount">chestCount</a></li><li><a href="global.html#chestReset">chestReset</a></li><li><a href="global.html#coinCount">coinCount</a></li><li><a href="global.html#createSummation">createSummation</a></li><li><a href="global.html#digits">digits</a></li><li><a href="global.html#disableButtons">disableButtons</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#findIndexInDigits">findIndexInDigits</a></li><li><a href="global.html#generateLoot">generateLoot</a></li><li><a href="global.html#generateQuestion">generateQuestion</a></li><li><a href="global.html#getAnswer">getAnswer</a></li><li><a href="global.html#getRndInteger">getRndInteger</a></li><li><a href="global.html#myTimeout">myTimeout</a></li><li><a href="global.html#myTimer">myTimer</a></li><li><a href="global.html#setLife">setLife</a></li><li><a href="global.html#sizeOfGrid">sizeOfGrid</a></li><li><a href="global.html#solution">solution</a></li><li><a href="global.html#startTimeControl">startTimeControl</a></li><li><a href="global.html#stopTimeControl">stopTimeControl</a></li><li><a href="global.html#time">time</a></li><li><a href="global.html#tryCount">tryCount</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Feb 03 2021 19:01:14 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
