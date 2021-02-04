@@ -8,6 +8,7 @@
     --darkcolor: #1F2A3D;
     --gold: #DAA520;
     --grass: #95a651;
+    --red: #990000;
     --contrast: #C94255;
     --lightcolor: #E7EEE2;
     --accentlight: #8494A8;
@@ -65,13 +66,37 @@ ul{
     border: 1px solid var(--contrast);
 }
 
-#tutorial{
-    background-color: var(--lightcolor);
+.skip{
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+}
+
+.skip a{
+    text-decoration: none;
+    color: var(--red);
+    display: block;
+    border: 3px solid var(--red);
+}
+
+.skip a:hover{
+    background-color: var(--gold);
+}
+
+#continue{
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 #tutorialText{
     height: 300px;
     border: 3px solid black;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 #credits ul{

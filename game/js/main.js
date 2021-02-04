@@ -39,7 +39,7 @@ $(function() {
     let nextCounter = 0;
     let contentText = "";
     drawGrid();
-    $("#weiter").on( 'click', function() {
+    $("#continue").on( 'click', function() {
          switch (nextCounter){
              case 0: contentText = "einmal weiter"; break;
              case 1: contentText ="zweimal weiter"; break;
@@ -90,7 +90,7 @@ $(function() {
         }
         $("span." + position).text(digits[newIndex]);
     });
-    
+
     $("#ok").on( 'click',function (){
         disableButtons();
         stopTimeControl();
@@ -104,6 +104,9 @@ $(function() {
             setLife();
         }
     });
+    $("#chest .return").on('click', function (){
+        stopTimeControl();
+    })
 });
 
 /**
@@ -124,7 +127,7 @@ function findIndexInDigits(num){
 /**
  * Diese Funktion liest aus der Eingabe einen numerischen Wert aus.
  *
- * @returns {number} eingebene Antwort
+ * @returns {number} eingegebene Antwort
  * */
 function getAnswer(){
     return $("#digit100").text() * 100 + $("#digit10").text() * 10 + $("#digit1").text() * 1;
@@ -137,13 +140,11 @@ function setGridRowAndColumn(){
     let columnString = "";
 
     for (let i = 0; i<gridRow; i++){
-        console.log(i);
         rowString += gridDivSize+ ", ";
         if(i===rowString-1) rowString = rowString.substr(0, rowString.length -2);
     }
 
     for (let i = 0; i<gridColumn; i++){
-        console.log(i);
         columnString += gridDivSize+ ", ";
         if(i===gridColumn-1) columnString = columnString.substr(0, columnString.length -2);
     }
@@ -152,7 +153,6 @@ function setGridRowAndColumn(){
         "grid-template-rows" : rowString,
         "grid-template-columns" : columnString
     });
-    $("#grid").addClass("fancy-border");
 }
 
 /**
@@ -167,22 +167,21 @@ function drawGrid(){
     for (let i = 0; i < sizeOfGrid; i++){
         $("#grid").append("<div></div>");
     }
-    exitIndex = getRndInteger(0,sizeOfGrid-1);
-    $("#grid div").eq(exitIndex).addClass("exit");
+
     do{
         gridIndex = getRndInteger(0,sizeOfGrid-1);
         if(gridIndex !== exitIndex) $("#grid div").eq(gridIndex).addClass("chest");
     }while( $(".chest").length < chestCount );
     do{
-        exitIndex = getRndInteger(0,100);
+        exitIndex = getRndInteger(0,sizeOfGrid-1);
     }while($("#grid div").eq(exitIndex).hasClass("chest"));
-    console.log($("#grid div").eq(exitIndex));
+    $("#grid div").eq(exitIndex).addClass("exit");
 }
 
 /**
  * Diese Funktion bestimmt einen zufälligen ganzzahligen Wert aus dem Interval [min, max]
- * @param {number} min Die untere Intervalgrenze
- * @param {number} max Die obere Intervalgrenze
+ * @param {number} min Die untere Interval Grenze
+ * @param {number} max Die obere Interval Grenze
  * @returns {number} Der zufällige Wert
  * */
 function getRndInteger(min, max) {
@@ -220,19 +219,15 @@ function generateQuestion(){
     $("#question").text((q1 +  operator  + q2 + " = " + q3));
 }
 /**
- * Diese Funktion überprüft, ob die Usereingabe mit der korrekten Lösung übereinstimmt
+ * Diese Funktion überprüft, ob die User Eingabe mit der korrekten Lösung übereinstimmt
  * @returns {boolean} Die Übereinstimmung
  * */
 function checkAnswer(){
-    if(getAnswer() === solution){
-        return true;
-    }else{
-        return false;
-    }
+    return getAnswer() === solution;
 }
 
 /**
- * Diese Funktion erstellt den Lootbildschirm, je nach verbrauchten Versuchen
+ * Diese Funktion erstellt den Loot-Bildschirm, je nach verbrauchten Versuchen
  * */
 function generateLoot(){
     console.log("test");
@@ -316,9 +311,10 @@ function startTimeControl(){
  * Diese Funktion stopt den Timer und blendet diesen aus.
  * */
 function stopTimeControl(){
+    console.log("clear")
     clearInterval(myTimer);
     clearTimeout(myTimeout);
-    $(".timerBox").hide();
+    $(".timerBox").html("").hide();
 }
 
 /**
