@@ -396,7 +396,7 @@ function tutorialClick(counter){
     switch (counter){
         case -1: $(".return.tutorial a").attr("href", "#menu"); break;
         case 0: contentText =  "Willkommen am Hof der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung in Truhen in ihrem Garten versteckt. Die Truhen sind mit einem Zahlenschloss versiegelt. Der Code, für das Schloss ist auf den deckeln der Truhen magisch hinterlassen, allerdings verschlüsselt. Nur ein wahrer Held kann die Aufgaben lösen:  Du musst mir helfen meine Münzen wieder zu erhalten";
-            backgroundImg = "";
+            backgroundImg = "url('img/screenshots/tutorial.jpg')";
             $(".return.tutorial a").attr("href", "#tutorial");
             break;
         case 1: contentText ="Betritt den Garten und untersuche eine Truhe, indem du auf einen Hinweis Marker klickst. Bedenke jedoch, dass du den Inhalt der Truhe für immer verlierst, wenn du sie nur untersuchst, aber die Aufgabe nicht löst";

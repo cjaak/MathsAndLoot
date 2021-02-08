@@ -11,10 +11,7 @@
     --gold: #DAA520;
     --grass: #95a651;
     --red: #990000;
-    --contrast: #C94255;
-    --lightcolor: #E7EEE2;
-    --accentlight: #8494A8;
-    --accentdark: #758696;
+    --lightcolor: #fff5d7;
     --background: #faebd7;
 }
 
@@ -75,14 +72,14 @@ body {
     line-height: 50px;
     text-decoration: none;
     border: 3px solid var(--gold);
-    background-color: #fff5d7;
+    background-color: var(--lightcolor);
     color: var(--gold);
 }
 
 .return a:hover, #credits .return a:hover, #continue:hover {
-    border: 3px solid #fff5d7;
+    border: 3px solid var(--lightcolor);
     background-color: var(--gold);
-    color: #fff5d7;
+    color: var(--lightcolor);
 }
 
 
@@ -188,6 +185,7 @@ ul{
     left: 0;
     top: 0;
     width: 100%;
+    background-image: url("../img/screenshots/tutorial.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -242,7 +240,7 @@ ul{
 #grid div{
     height: 70px;
     width: 70px;
-    background-color: #95a651;
+    background-color: var(--grass);
     border: 1px solid black;
     background-size: cover;
 }
@@ -296,7 +294,7 @@ ul{
 /*https://css-tricks.com/timer-bars-in-css-with-custom-properties/*/
 .timer div {
     height: 10px;
-    background: linear-gradient(to bottom, red, #900);
+    background: linear-gradient(to bottom, red, var(--red));
     animation: roundtime calc(var(--duration) * 1s) linear forwards;
     transform-origin: left center;
 }
@@ -319,16 +317,16 @@ ul{
     width: 50px;
 }
 .lock button{
-    background-color: #966a5b;
-    color: #DAA520;
-    border: 3px solid #DAA520;
+    background-color: var(--darkbrown);
+    color: var(--gold);
+    border: 3px solid var(--gold);
     border-radius: 12px;
 }
 
 .lock button:hover{
-    background-color: #DAA520;
-    color: #966a5b;
-    border: 3px solid #966a5b;
+    background-color: var(--gold);
+    color: var(--darkbrown);
+    border: 3px solid var(--darkbrown);
 }
 
 
