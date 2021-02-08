@@ -421,20 +421,20 @@ function tutorialClick(counter){
     });
 }
 
+/**
+ * Diese Funktion zeigt im  Belohnungsgrid die korrekte Anzahl gesammelter Münzen visuell an.
+ * */
 function showCollectedCoins(){
-    // let i = 0;
-    // while(i < coinCount){
-    //     $(".coinGrid img").eq(i).fadeIn("slow");
-    //     setTimeout(function (){
-    //         i++;
-    //     }, 1000);
-    // }
+
     for (let i=0; i<coinCount; i++){
         console.log("EQ"+ i);
         $(".coinGrid img").eq(i).fadeIn(delay);
     }
 }
 
+/**
+ * Diese Funktion erstellt das Grid mit den Belohnungsmünzen.
+ * */
 function createCoinGrid(){
     let coinGridSize = chestCount * 3;
     // setGridRowAndColumn(".coinCount",chestCount, 3);
