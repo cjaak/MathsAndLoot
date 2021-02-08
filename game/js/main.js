@@ -52,6 +52,7 @@ $(function() {
     $("#start").on('click touch', function(){
         location.reload()
         location.href="#tutorial";
+        tutorialClick(nextCounter);
     })
     $("#continue").on( 'click touch', function() {
         nextCounter++;
@@ -68,9 +69,11 @@ $(function() {
     $("div.exit").on( 'click touch',function(){
         if(exitClick === 0){
             $("#grid .exit").css({"background-image" : "url('img/gate.png')"});
+            createCoinGrid();
             exitClick++;
         }else{
             location.href="#exit";
+            // showCollectedCoins();
         }
     });
 
@@ -119,8 +122,9 @@ $(function() {
         }
     });
 
-    $("#chest .return").on('click touch', function (){
+    $("#chest .return, #fertig").on('click touch', function (){
         stopTimeControl();
+        location.href='#field';
     })
 });
 
@@ -148,12 +152,15 @@ function getAnswer(){
     return $("#digit100").text() * 100 + $("#digit10").text() * 10 + $("#digit1").text() * 1;
 }
 /**
- * Diese Funktion legt die Anzahl der Reihen und Spalten des Spielfelds fest.
+ * Diese Funktion legt die Anzahl der Reihen und Spalten eines Grids fest.
+ * @param {number} row Anzahl der Reihen
+ * @param {number} column Anzahl der Spalten
+ * @param {string} selector Selector des Grids
  * */
-function setGridRowAndColumn(){
-    $("#grid").css({
-        "grid-template-rows" : "repeat("+ gridRow+", 1fr)",
-        "grid-template-columns" : "repeat("+ gridColumn+", 1fr)"
+function setGridRowAndColumn(selector, row, column){
+    $(selector).css({
+        "grid-template-rows" : "repeat("+ row+", 1fr)",
+        "grid-template-columns" : "repeat("+ column+", 1fr)"
     });
 }
 
@@ -164,7 +171,7 @@ function drawGrid(){
     let exitIndex, gridIndex;
     let sizeOfGrid = gridColumn*gridRow;
 
-    setGridRowAndColumn();
+    setGridRowAndColumn("#grid", gridRow, gridColumn);
 
     for (let i = 0; i < sizeOfGrid; i++){
         $("#grid").append("<div></div>");
@@ -270,7 +277,9 @@ function checkAnswer(){
  * */
 function generateLoot(){
     console.log("test");
-    $(".reward-card").slideDown(1500);
+    $(".reward-card").slideDown(1500, function (){
+        $("#fertig").fadeIn("slow");
+    });
     if (tryCount < 3) {
         let coinsGained= 0;
         $(".reward").css("background-image", "url(\"img/reward.png\")");
@@ -386,7 +395,7 @@ function tutorialClick(counter){
     let backgroundImg;
     switch (counter){
         case -1: $(".return.tutorial a").attr("href", "#menu"); break;
-        case 0: contentText = "Willkommen im im Hof von der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung in Truhen in seinem Garten versteckt. Allerdings ist die Zaubererin sehr vergesslich und hat die Truhen deswegen so verzaubert, dass ein Lösungshinweis für das Zahlenschloss, mit dem die Truhen verschlossen sind, auf den Deckeln der Truhen erscheint. Du musst mir helfen meine Münzen wieder zu erhalten!";
+        case 0: contentText =  "Willkommen am Hof der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung in Truhen in ihrem Garten versteckt. Die Truhen sind mit einem Zahlenschloss versiegelt. Der Code, für das Schloss ist auf den deckeln der Truhen magisch hinterlassen, allerdings verschlüsselt. Nur ein wahrer Held kann die Aufgaben lösen:  Du musst mir helfen meine Münzen wieder zu erhalten";
             backgroundImg = "";
             $(".return.tutorial a").attr("href", "#tutorial");
             break;
@@ -410,4 +419,27 @@ function tutorialClick(counter){
     $("#screenshot").css({
         "background-image": backgroundImg
     });
+}
+
+function showCollectedCoins(){
+    let i = 0;
+    while(i < coinCount){
+        $(".coinGrid img").eq(i).fadeIn("slow");
+        setTimeout(function (){
+            i++;
+        }, 1000);
+    }
+    // for (let i=0; i<coinCount; i++){
+    //     console.log("EQ"+ i);
+    //     $(".coinGrid img").eq(i).fadeIn(delay);
+    // }
+}
+
+function createCoinGrid(){
+    let coinGridSize = chestCount * 3;
+    // setGridRowAndColumn(".coinCount",10, 3);
+    for (let i = 0; i < coinGridSize; i++){
+        $(".coinGrid").append("<img src=\"img/coin.png\" alt=\"Münze\" height=\"30\" width=\"30\">");
+    }
+    $(".coinGrid img").hide();
 }

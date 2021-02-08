@@ -28,10 +28,8 @@
             <div id="screenshot"></div>
         </div>
         <div id="tutorialText">
-            <p>Willkommen im im Hof von der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung
-                in Truhen in seinem Garten versteckt. Allerdings ist die Zaubererin sehr vergesslich und hat die Truhen deswegen so verzaubert, dass ein Lösungshinweis für das
-                Zahlenschloss, mit dem die Truhen verschlossen sind, auf den Deckeln der Truhen erscheint. Du musst mir helfen meine Münzen wieder zu erhalten!</p>
-         <button id="continue">weiter</button>
+            <p>Willkommen am Hof der bösen Magierin Zahlgie. Lady Zahlgie hat meine wertvolle Münzsammlung in Truhen in ihrem Garten versteckt. Die Truhen sind mit einem Zahlenschloss versiegelt. Der Code, für das Schloss ist auf den deckeln der Truhen magisch hinterlassen, allerdings verschlüsselt. Nur ein wahrer Held kann die Aufgaben lösen:  Du musst mir helfen meine Münzen wieder zu erhalten!</p>
+         <button id="continue">weiter &#9755;</button>
         </div>
         <div class="skip">
             <a href="#field">Direkt anfangen <br> zu spielen</a>
@@ -42,7 +40,7 @@
     </div>
 </div>
 
-<!--Spielfel-->
+<!--Spielfeld-->
 <div class="box" id="field">
     <div class="status">
         <span class="coins">0</span><img src="img/coin.png" alt="coin" height="30" width="30">
@@ -129,6 +127,7 @@
         <div class="reward">
             <span id="reward">Du bekommst 3 Münzen.</span>
         </div>
+        <button type="submit" class="golden-btn" id="fertig">Fertig </button>
     </div>
     <div class="return">
         <a href="#field">&#9754; zurück</a>
@@ -138,6 +137,8 @@
 <!--Endbildschirm-->
 <div class="box" id="exit">
     <div>
+        <div class="coinGrid">
+        </div>
         Du hast <span class="coins">0</span>/30 Münzen gesammelt. Bist du fertig?
         <button id="cancel">Nein</button>
         <button id="exitGame">Spiel beenden</button>
