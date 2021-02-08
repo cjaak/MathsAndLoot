@@ -73,7 +73,7 @@ $(function() {
             exitClick++;
         }else{
             location.href="#exit";
-            // showCollectedCoins();
+            showCollectedCoins();
         }
     });
 
@@ -422,22 +422,22 @@ function tutorialClick(counter){
 }
 
 function showCollectedCoins(){
-    let i = 0;
-    while(i < coinCount){
-        $(".coinGrid img").eq(i).fadeIn("slow");
-        setTimeout(function (){
-            i++;
-        }, 1000);
-    }
-    // for (let i=0; i<coinCount; i++){
-    //     console.log("EQ"+ i);
-    //     $(".coinGrid img").eq(i).fadeIn(delay);
+    // let i = 0;
+    // while(i < coinCount){
+    //     $(".coinGrid img").eq(i).fadeIn("slow");
+    //     setTimeout(function (){
+    //         i++;
+    //     }, 1000);
     // }
+    for (let i=0; i<coinCount; i++){
+        console.log("EQ"+ i);
+        $(".coinGrid img").eq(i).fadeIn(delay);
+    }
 }
 
 function createCoinGrid(){
     let coinGridSize = chestCount * 3;
-    // setGridRowAndColumn(".coinCount",10, 3);
+    // setGridRowAndColumn(".coinCount",chestCount, 3);
     for (let i = 0; i < coinGridSize; i++){
         $(".coinGrid").append("<img src=\"img/coin.png\" alt=\"Münze\" height=\"30\" width=\"30\">");
     }

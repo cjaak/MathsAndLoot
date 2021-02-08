@@ -95,23 +95,37 @@ ul{
 
 /*Menu*/
 #menu{
-    background-color: var(--darkcolor);
+    background-image: url("../img/startscreen.jpg");
 }
 
 
-#menu ul li a{
+#menu  a{
     display: block;
-    color: var(--lightcolor);
+    color: var(--background);
     text-decoration: none;
-    background-color: #8494A8;
-    width: 300px;
-    border: 1px solid var(--lightcolor);
+    background-color: var(--darkbrown);
+    width: 150px;
+    border: 1px solid var(--background);
     text-align: center;
 }
 
-#menu ul li a:hover{
-    color: var(--contrast);
-    border: 1px solid var(--contrast);
+#menu  a:hover{
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
+
+#start{
+    position: absolute;
+    bottom: 200px;
+    right: 445px;
+}
+
+#toCredits{
+    position: absolute;
+    left: 90px;
+    bottom: 275px;
+    transform: rotate(-5deg);
+
 }
 
 /*Tutorial*/
